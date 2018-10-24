@@ -1,7 +1,7 @@
 from tkinter import *
 import time
 
-colors = ['red','black','green','yellow','blue','pink','purple','skyblue','orange']
+colors = ['red', 'black', 'green', 'yellow', 'blue', 'pink', 'purple', 'skyblue','orange', 'gray', 'gold', 'brown']
 import random
 count = 0
 
@@ -28,7 +28,7 @@ def click(event):
     x1 = event.x
     y1 = event.y
     global count
-    if abs(x1-x)<r and abs(y1-y)<r:
+    if abs(x1  -x) < r and abs(y1 - y) < r:
         count = count + 1
 
 canv.bind('<Button-1>', click)
