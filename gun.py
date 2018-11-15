@@ -28,7 +28,7 @@ class ball():
         self.vy = 0
         self.color = choice(['blue','green','red','brown'])
         self.id = canv.create_oval(self.x-self.r, self.y-self.r, self.x+self.r, self.y+self.r, fill=self.color)
-        self.live = 30
+        self.live = 100
 
     def set_coords(self):
         canv.coords(self.id, self.x-self.r, self.y-self.r, self.x+self.r, self.y+self.r)
@@ -38,10 +38,26 @@ class ball():
         self.x и self.y с учетом скоростей self.vx и self.vy, силы гравитации, действующей на мяч,
             и стен по краям окна (размер окна 800х600).
         """
-        #FIXME
-        self.x += self.vx
-        self.y -= self.vy
-
+        if self.y <= 500:
+            self.vy -= 1
+            self.y -= self.vy
+            self.x += self.vx
+            self.vx *= 0.99
+            self.set_coords()
+        else:
+            if self.vx**2+self.vy**2 > 10:
+                self.vy = -self.vy/2
+                self.vx = self.vx/2
+                self.y = 499
+        if self.live < 0:
+            balls.pop(balls.index(self))
+            canv.delete(self.id)
+        else:
+            self.live -= 1
+        if self.x > 780:
+            self.vx = -self.vx/2
+            self.x = 779
+       
     def hittest(self,ob):
         """ Функция проверяет сталкивалкивается ли данный обьект с целью, описываемой в обьекте ob.
 
@@ -50,17 +66,19 @@ class ball():
         Returns:
             Возвращает True в случае столкновения мяча и цели. В противном случае возвращает False.
         """
-        #FIXME
+        if abs(ob.x-self.x) <= (self.r+ob.r) and abs(ob.y-self.y) <= (self.r+ob.r):
+            return True
+        else:
             return False
-
+        
 class gun():
     """ Класс gun описывает пушку. """
+    def __init__(self):
+        self.f2_power = 10
+        self.f2_on = 0
+        self.angle = 1
+        self.id = canv.create_line(20, 450, 50, 420, width=15)
 
-    self.f2_power = 10
-    self.f2_on = 0
-    self.an = 1
-    #self.id = canv.create_line(20,450,50,420,width=7) # FIXME: don't know how to set it...
-         
     def fire2_start(self,event):
         self.f2_on = 1
  
@@ -72,9 +90,9 @@ class gun():
         bullet += 1
         new_ball = ball()
         new_ball.r += 5
-        self.an = math.atan((event.y-new_ball.y)/(event.x-new_ball.x))
-        new_ball.vx = self.f2_power*math.cos(self.an)
-        new_ball.vy = -self.f2_power*math.sin(self.an)
+        self.angle = math.atan((event.y-new_ball.y)/(event.x-new_ball.x))
+        new_ball.vx = self.f2_power*math.cos(self.angle)
+        new_ball.vy = -self.f2_power*math.sin(self.angle)
         balls += [new_ball]
         self.f2_on = 0
         self.f2_power = 10
@@ -89,7 +107,8 @@ class gun():
             canv.itemconfig(self.id,fill = 'orange')
         else:
             canv.itemconfig(self.id,fill = 'black')
-        canv.coords(self.id, 20, 450, 20 + max(self.f2_power, 20) * math.cos(self.an), 450 + max(self.f2_power, 20) * math.sin(self.an))
+            canv.coords(self.id, 20, 450, 20 + max(self.f2_power, 20) * math.cos(self.an),
+                    450 + max(self.f2_power, 20) * math.sin(self.an))
          
 
     def power_up(self):
@@ -101,14 +120,14 @@ class gun():
             canv.itemconfig(self.id,fill = 'black')
         
 class target():
-    """ Класс target описывает цель. """ 
-    self.points = 0
-    self.live = 1
-    # FIXME: don't work!!! How to call this functions when object is created?
-    #self.id = canv.create_oval(0,0,0,0)
-    #self.id_points = canv.create_text(30,30,text = self.points,font = '28')
-    #self.new_target()
-         
+    """ Класс target описывает цель. """
+    def __init__(self):
+        self.points = 0
+        self.id = canv.create_oval(0, 0, 0, 0)
+        self.id_points = canv.create_text(100, 30, text='Набрано' + str(self.points) + 'очков', font='28')
+        self.new_target()
+        self.live = 1
+   
     def new_target(self):
         """ Инициализация новой цели. """
         x = self.x = rnd(600,780)
@@ -119,7 +138,7 @@ class target():
         canv.itemconfig(self.id, fill = color)
          
     def hit(self,points = 1):
-    """ Попадание шарика в цель. """
+        """ Попадание шарика в цель. """
         canv.coords(self.id,-10,-10,-10,-10)
         self.points += points
         canv.itemconfig(self.id_points, text = self.points)
