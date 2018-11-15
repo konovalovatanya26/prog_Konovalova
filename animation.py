@@ -60,21 +60,21 @@ def draw_stem():
 
 def draw_flower(y1, y2, y3):
     for x in range(2):
-        flower1 = gr.Circle(gr.Point(70, y1), 50)
-        flower1.setFill('red')
-        flower1.draw(window)
+        flower_1 = gr.Circle(gr.Point(70, y1), 50)
+        flower_1.setFill('red')
+        flower_1.draw(window)
         y1 = y1 + 70
 
     for x in range(2):
-        flower1 = gr.Circle(gr.Point(210, y2), 50)
-        flower1.setFill('red')
-        flower1.draw(window)
+        flower_2 = gr.Circle(gr.Point(210, y2), 50)
+        flower_2.setFill('red')
+        flower_2.draw(window)
         y2 = y2 + 70
 
     for x in range(2):
-        flower1 = gr.Circle(gr.Point(140, y3), 50)
-        flower1.setFill('red')
-        flower1.draw(window)
+        flower_3 = gr.Circle(gr.Point(140, y3), 50)
+        flower_3.setFill('red')
+        flower_3.draw(window)
         y3 = y3 + 135
 
     flower = gr.Circle(gr.Point(140, 110), 40)
@@ -91,10 +91,10 @@ def draw_caterpillar(x, y):
         x = x + 40
 
     for y1 in range(2):
-        caterpillarx = gr.Line(gr.Point(250, 415), gr.Point(y, 390))
-        caterpillarx .setWidth(4)
-        caterpillarx .setFill('black')
-        caterpillarx .draw(window)
+        caterpillar_x = gr.Line(gr.Point(250, 415), gr.Point(y, 390))
+        caterpillar_x .setWidth(4)
+        caterpillar_x .setFill('black')
+        caterpillar_x .draw(window)
         y = y - 30
 
     caterpillarh = gr.Circle(gr.Point(250, 440), 25)
