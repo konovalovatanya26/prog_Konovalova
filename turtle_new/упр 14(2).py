@@ -1,16 +1,7 @@
 import turtle
-turtle.shape('turtle')
+t = turtle.Turtle()
+t.shape('turtle')
 
-
-L=200
-
-
-def line(L):
-    turtle.forward(L)
-    turtle.right(164)
-
-
-for x in range (11):
-    line(L)
-    
-        
+for _ in range(11):
+    t.forward(200)
+    t.right(164)

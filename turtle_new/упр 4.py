@@ -1,6 +1,7 @@
 import turtle
-turtle.shape('turtle')
+t = turtle.Turtle()
+t.shape('turtle')
 
-for _ in range (400):
-    turtle.forward(1)
-    turtle.left(1)
+for _ in range(400):
+    t.forward(1)
+    t.left(1)
