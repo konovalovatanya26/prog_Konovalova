@@ -8,6 +8,6 @@ class Hero(Attacker):
         self._name = name
 
 
-     def attack(self, target):
+    def attack(self, target):
         target._health -= self._attack
         self._experience += 1
