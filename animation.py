@@ -5,7 +5,6 @@ import time
 window = gr.GraphWin("Tanya project", 500, 500)
 
 
-
 def draw_sky():
     sky = gr.Rectangle(gr.Point(0, 500), gr.Point(500, 0))
     sky.setFill('skyblue')
@@ -24,18 +23,18 @@ def draw_sun():
 
 def draw_clouds(x, y):
     for _ in range(3):
-         for _ in range(7):
-             x -= random.randint(0, 10) 
-             r = random.randint(20, 25)
-             distance_x = random.randint(50, 60)
-             distance_y = random.randint(50, 60)
-             cloud = gr.Circle(gr.Point(x + distance_x, y + distance_y), r)
-             cloud.setOutline('white')
-             cloud.setFill('white')
-             cloud.draw(window)
+        for _ in range(7):
+            x -= random.randint(0, 10)
+            r = random.randint(20, 25)
+            distance_x = random.randint(50, 60)
+            distance_y = random.randint(50, 60)
+            cloud = gr.Circle(gr.Point(x + distance_x, y + distance_y), r)
+            cloud.setOutline('white')
+            cloud.setFill('white')
+            cloud.draw(window)
 
-         x = x - 60
-         y = y - 10
+        x = x - 60
+        y = y - 10
         
 
 def draw_vase(z1, z2, z3, z4):
