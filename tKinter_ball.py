@@ -7,7 +7,7 @@ count = 0
 
 def tick():
     global x, y, r
-    root.after(1000, tick)
+    root.after(2000, tick)
     canv.delete(ALL)
     x = random.randint(10, 600)
     y = random.randint(10, 600)
@@ -15,9 +15,9 @@ def tick():
     red = random.randint(0, 255)
     blue = random.randint(0, 255)
     green = random.randint(0, 255)
-    canv.create_oval(x-r, y-r, x+r, y+r, fill=gr.color_rgb(red, blue, green))
     canv.create_text(400, 300, text=str(count), font='Arial 25')
-
+    canv.create_oval(x-r, y-r, x+r, y+r, fill=gr.color_rgb(red, blue, green))
+    
 
 root = Tk()
 root.geometry('800x600')
@@ -28,6 +28,7 @@ root.after_idle(tick)
 
 
 def click(event):
+    global count, x, y
     x1 = event.x
     y1 = event.y
     global count
@@ -35,6 +36,11 @@ def click(event):
         count = count + 1
     else:
         count = count - 1
+
+    canv.delete(ALL)
+    canv.create_text(400, 300, text=str(count), font='Arial 25')
+    x = 1000
+    y = 1000
 
 
 canv.bind('<Button-1>', click)
