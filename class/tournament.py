@@ -2,7 +2,7 @@ from enemies import *
 from hero import *
 
 
-def annoying_input_int(message = ''):
+def annoying_input_int(message=''):
     answer = None
     while answer == None:
         try:

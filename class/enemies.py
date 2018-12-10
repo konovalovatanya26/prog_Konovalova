@@ -11,7 +11,6 @@ def generate_random_enemy():
     enemy = RandomEnemyType()
     return enemy
 
-
 def generate_dragon_list(enemy_number):
     enemy_list = [generate_random_enemy() for i in range(enemy_number)]
     return enemy_list
@@ -38,6 +37,7 @@ class GreenDragon(Dragon):
         self.set_answer(x + y)
         return self.__quest
 
+
 class RedDragon(Dragon):
     def __init__(self):
         self._health = 200
@@ -45,8 +45,8 @@ class RedDragon(Dragon):
         self._color = 'красный'
 
     def question(self):
-        x = randit(1, 100)
-        y = randit(1, 100)
+        x = randint(1, 100)
+        y = randint(1, 100)
         self.__guest = str(x) + '-' + str(y)
         self.set_answer(x - y)
         return self.__guest
@@ -59,8 +59,8 @@ class BlackDragon(Dragon):
         self._color = 'черный'
 
     def question(self):
-        x = randit(1, 20)
-        y = randit(1, 20)
+        x = randint(1, 20)
+        y = randint(1, 20)
         self.__guest = str(x) + '*' + str(y)
         self.set_answer(x * y)
         return self.__guest
