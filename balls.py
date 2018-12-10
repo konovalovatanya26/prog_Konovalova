@@ -7,13 +7,16 @@ root.geometry("600x600")
 canvas = Canvas(root)
 canvas.pack(fill=BOTH, expand=1)
 
+lenght = 600
+width = 600
 balls = []
+
 
 def generate_balls():
     for _ in range(7):
         global ball, x, y, r, dx, dy, appearance
-        x = random.randint(20, 270)
-        y = random.randint(20, 270)
+        x = random.randint(50, width - 50)
+        y = random.randint(50, lenght - 50)
         r = random.randint(10, 50)
         dx = random.randint(-15, 15)
         dy = random.randint(-10, 10)
@@ -24,24 +27,18 @@ def generate_balls():
         ball = [x, y, r, dx, dy, appearance]
         balls.append(ball)
 
+
 def tick_handler():
     for ball in range(len(balls)):
         global x, y, r, dx, dy, appearance
         x, y, r, dx, dy, appearance = balls[ball]
         
         # Отражение от края холста
-        if x < 0:
-            dx = -dx; x = 0
-        elif x > 600-40:
+        if x + r > width or x - r < 0 or y + r > lenght or y - r < 0:
             dx = -dx
-            x = 600-40
-        if y < 0:
             dy = -dy
-            y = 0
-        elif y > 600-40:
-            dy = -dy
-            y = 600-40
-        x = x + dx; y = y + dy
+        x = x + dx
+        y = y + dy
         canvas.move(appearance, dx, dy)
         balls[ball] = [x, y, r, dx, dy, appearance]
 
@@ -56,6 +53,7 @@ def time_handler():
     tick_handler()
     sleep_dt = 1100 - 100*speed
     root.after(sleep_dt, time_handler)
+
 
 def unfreezer(event):
     global freeze
