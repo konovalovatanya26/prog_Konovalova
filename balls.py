@@ -1,37 +1,49 @@
 from tkinter import *
+import graphics as gr
+import random
 
 root = Tk()
-root.geometry("300x300")
+root.geometry("600x600")
 canvas = Canvas(root)
 canvas.pack(fill=BOTH, expand=1)
 
 balls = []
-for x, y, dx, dy in (100, 100, 2, 3), (200, 200, -2, 3):
-    oval = canvas.create_oval(x, y, x+40, y+40)
-    ball = [x, y, dx, dy, oval]
-    balls.append(ball)
+
+def generate_balls():
+    for _ in range(7):
+        global ball, x, y, r, dx, dy, appearance
+        x = random.randint(20, 270)
+        y = random.randint(20, 270)
+        r = random.randint(10, 50)
+        dx = random.randint(-15, 15)
+        dy = random.randint(-10, 10)
+        red = random.randint(0, 255)
+        blue = random.randint(0, 255)
+        gree = random.randint(0, 255)
+        appearance = canvas.create_oval(x - r, y - r, x + r, y + r, fill=gr.color_rgb(red, blue, gree))
+        ball = [x, y, r, dx, dy, appearance]
+        balls.append(ball)
 
 def tick_handler():
-    for ball in balls:
-        x, y, dx, dy, oval = ball
+    for ball in range(len(balls)):
+        global x, y, r, dx, dy, appearance
+        x, y, r, dx, dy, appearance = balls[ball]
+        
         # Отражение от края холста
         if x < 0:
             dx = -dx; x = 0
-        elif x > 300-40:
+        elif x > 600-40:
             dx = -dx
-            x = 300-40
+            x = 600-40
         if y < 0:
             dy = -dy
             y = 0
-        elif y > 300-40:
+        elif y > 600-40:
             dy = -dy
-            y = 300-40
+            y = 600-40
         x = x + dx; y = y + dy
-        canvas.move(oval, dx, dy)
-        ball[0] = x
-        ball[1] = y
-        ball[2] = dx
-        ball[3] = dy
+        canvas.move(appearance, dx, dy)
+        balls[ball] = [x, y, r, dx, dy, appearance]
 
 
 def time_handler():
@@ -61,6 +73,7 @@ speed_scale.pack()
 speed_scale.set(1);
 freeze = False
 
+generate_balls()
 root.after(10, time_handler)
 speed_scale.bind("<Motion>", unfreezer)
 root.mainloop()
