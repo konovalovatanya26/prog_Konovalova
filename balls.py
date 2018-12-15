@@ -34,8 +34,9 @@ def tick_handler():
         x, y, r, dx, dy, appearance = balls[ball]
         
         # Отражение от края холста
-        if x + r > width or x - r < 0 or y + r > lenght or y - r < 0:
+        if x + r > width or x - r < 0:
             dx = -dx
+        if y + r > lenght or y - r < 0:
             dy = -dy
         x = x + dx
         y = y + dy
